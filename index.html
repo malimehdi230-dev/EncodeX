@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Universal Code Converter - Premium Utility App">
+    <meta name="theme-color" content="#0f172a">
+    <title>Universal Code Converter</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 9l3 3-3 3M16 9l-3 3 3 3" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div>
+                    <h1>Universal Code Converter</h1>
+                    <p class="subtitle">Premium Utility</p>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="text">Text / Code</button>
+                <button class="tab-btn" data-tab="number">Number Base</button>
+            </div>
+
+            <!-- Text / Code Converter Section -->
+            <div id="tab-text" class="tab-content active converter-card">
+                <div class="controls-row">
+                    <div class="select-wrapper">
+                        <select id="encoding-type">
+                            <option value="morse">Morse Code</option>
+                            <option value="binary">Binary (Text)</option>
+                            <option value="ascii">ASCII</option>
+                            <option value="hex">Hexadecimal (Text)</option>
+                            <option value="base64">Base64</option>
+                            <option value="caesar">Caesar Cipher</option>
+                        </select>
+                        <div class="select-arrow">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="toggle-container">
+                    <button id="mode-encode" class="toggle-btn active" data-mode="encode">Encode</button>
+                    <button id="mode-decode" class="toggle-btn" data-mode="decode">Decode</button>
+                </div>
+
+                <div id="caesar-controls" class="caesar-controls hidden">
+                    <label for="shift-amount">Shift: <span id="shift-value">3</span></label>
+                    <input type="range" id="shift-amount" min="0" max="25" value="3">
+                </div>
+
+                <div class="input-group">
+                    <label for="input-text">Input</label>
+                    <textarea id="input-text" placeholder="Type here to convert..."></textarea>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="convert-btn" class="primary-btn">
+                        <span>Convert</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                    <button id="clear-btn" class="secondary-btn">Clear</button>
+                </div>
+
+                <div class="input-group output-group">
+                    <div class="label-row">
+                        <label for="output-text">Output</label>
+                        <button id="copy-btn" class="icon-btn" title="Copy Output">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                        </button>
+                    </div>
+                    <textarea id="output-text" readonly placeholder="Result will appear here..."></textarea>
+                </div>
+            </div>
+
+            <!-- Number Base Converter Section -->
+            <div id="tab-number" class="tab-content converter-card" style="display: none;">
+                <div class="controls-row">
+                    <div class="base-select-group">
+                        <div class="input-group">
+                            <label for="from-base">From Base</label>
+                            <div class="select-wrapper">
+                                <select id="from-base">
+                                    <option value="2">Binary (2)</option>
+                                    <option value="8">Octal (8)</option>
+                                    <option value="10" selected>Decimal (10)</option>
+                                    <option value="16">Hexadecimal (16)</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="exchange-icon">
+                            <button id="swap-base-btn" class="icon-btn" title="Swap Bases">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8v12M17 20l4-4M17 20l-4-4" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="to-base">To Base</label>
+                            <div class="select-wrapper">
+                                <select id="to-base">
+                                    <option value="2" selected>Binary (2)</option>
+                                    <option value="8">Octal (8)</option>
+                                    <option value="10">Decimal (10)</option>
+                                    <option value="16">Hexadecimal (16)</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 9l6 6 6-6" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="base-input">Input Number</label>
+                    <textarea id="base-input" placeholder="Enter number..."></textarea>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="base-convert-btn" class="primary-btn">
+                        <span>Convert Base</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                    <button id="base-clear-btn" class="secondary-btn">Clear</button>
+                </div>
+
+                <div class="input-group output-group">
+                    <div class="label-row">
+                        <label for="base-output">Result</label>
+                        <button id="base-copy-btn" class="icon-btn" title="Copy Output">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                            </svg>
+                        </button>
+                    </div>
+                    <textarea id="base-output" readonly placeholder="Result will appear here..."></textarea>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Developed by Muhammad Ali Mehdi</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
